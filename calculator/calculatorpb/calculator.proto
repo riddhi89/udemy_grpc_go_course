@@ -1,0 +1,41 @@
+syntax = "proto3";
+
+package calculator;
+
+option go_package = "grpc_course/calculator/calculatorpb;calculatorpb";
+
+
+message ComputeAverageRequest {
+    int32 inputNum = 1;
+}
+
+message ComputeAverageResponse {
+    double average = 1;
+}
+
+message FindMaximumRequest{
+    int32 num = 1;
+}
+
+message FindMaximumResponse{
+    int32 maxNum = 1;
+}
+
+message SqaureRootRequest{
+    int32 number = 1;
+}
+
+message SqaureRootResponse{
+    double number_root = 1;
+}
+service CalculatorService{
+    // Client Streaming
+    rpc ComputeAverage(stream ComputeAverageRequest) returns (ComputeAverageResponse){};
+    // Bi-Di Streaming
+    rpc FindMaximum(stream FindMaximumRequest) returns (stream FindMaximumResponse){};
+    
+    // error handling
+    // this RPC will throw an exception if the sent number is negative
+    // The error being sent is of type INVALID_ARGUMENT
+    rpc SqaureRoot(SqaureRootRequest) returns (SqaureRootResponse){};
+}

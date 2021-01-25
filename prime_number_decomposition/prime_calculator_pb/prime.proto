@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package greet;
+
+option go_package = "grpc_course/prime_number_decomposition/prime_calculator_pb;prime_calculator_pb";
+
+message PrimeDecomposerRequest {
+    int32 number = 1;
+}
+
+message PrimeDecomposerResponse{
+    int32 primeNumber = 1;
+}
+
+service PrimeDecomposerService{
+
+    // Server Streaming
+    rpc PrimeDecomposer(PrimeDecomposerRequest) returns (stream PrimeDecomposerResponse) {};
+}
